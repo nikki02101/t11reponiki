@@ -1,80 +1,149 @@
 <script>
-//Matus Nikolett, Junior Frontend, Team 11
+//Matus Niki
+//Team11_Junior Frontwend
 
-function keszito(){
-	document.write("Matus Nikolett<br> Junior frontend<br> #Team11");
-}
-keszito();
- 
-document.write("<hr>")
-
-function hatvanyozo(szam,hatvany){
-	let eredmeny=szam**hatvany
-    return eredmeny;
-}
-
-document.write(hatvanyozo(5,3));
-
-document.write("<hr>")
-
-function parosLetrehoz(also,felso){
-	let randomSzam=(Math.round(Math.random()*felso-also))+also;
-       if(randomSzam%2==0){
-    	return randomSzam
-    }
-    else{
-    	return randomSzam+1
-    }
-}
-
-document.write(parosLetrehoz(1,100));
-
-document.write("<hr>")
-
-function testTomegIndex(suly,magassag){
-	let TTI=suly/(magassag*magassag)
-   
-    if(TTI<16){
-		return "sulyosSovanysag";
-	}
-	else if(TTI<17){
-		return "mersekeltSovanysag";
-	}
-	else if(TTI<18.5){
-		return "enyheSovanysag";
-	}
-	else if(TTI<25){
-		return "normalisTestsuly";
-	}
-	else if(TTI<30){
-		return "tulsulyos";
-	}
-	else if(TTI<35){
-		return "IfokuElhizas";
-	}
-	else if(TTI<40){
-		return "IIfokuElhizas";
-	}
-	else{
-		return "IIIfokuSulyosElhizas";
-	}
-
-}
-document.write(testTomegIndex(95,1.5));
-
-document.write("<hr>")
-
-function egeszOsztoE(szam,oszto){
-	
-   	if(szam%oszto==0){
-    	return true;
+function hosszEllenor(szoveg)
+{
+	let vanENyolcKarakter=szoveg.length;
+	if(vanENyolcKarakter>8){
+		return true;
     }
     
-    else{
-    	return false;
-    }
-      
+	else{
+		return false;
+	}
 }
-document.write(egeszOsztoE(25,5));    
+
+document.write("Hosszellenőr függvény eredménye:  "+(hosszEllenor("Feladatteszt")));
+document.write("<hr>");
+
+
+
+
+
+function tajSzamEllenor(tajszam)
+{
+	if(tajszam.length==9){   
+    	let parosak=(Number(tajszam[1])+Number(tajszam[3])+Number(tajszam[5])+Number(tajszam[7]))*7;
+        let paratlanok=(Number(tajszam[0])+Number(tajszam[2])+Number(tajszam[4])+Number(tajszam[6]))*3;
+    	if((parosak+paratlanok)%10==tajszam[8]){
+    		return true;
+    	}
+        else{
+    		return false;
+    	}	
+    }	
+  	return false;
+}
+document.write("A tajszámellenőr függvény eredménye:"+(tajSzamEllenor("040655330")));
+document.write("<hr>");
+
+function tombTerjedelem(vizsgaltTomb) 
+{
+let minErtek=vizsgaltTomb[0];
+for(let i=1;i<vizsgaltTomb.length;i++){
+	if(vizsgaltTomb[i]<minErtek){
+    	minErtek=vizsgaltTomb[i];}
+    }
+   
+let maxErtek=vizsgaltTomb[0];
+for(let i=1;i<vizsgaltTomb.length;i++){
+if(vizsgaltTomb[i]>maxErtek){
+	maxErtek=vizsgaltTomb[i];}
+	}
+   
+return maxErtek-minErtek;
+
+}
+let vizsgaltTomb=[3, 5, 10, 16, 9];
+document.write("A tömb terjedelme: "+tombTerjedelem(vizsgaltTomb));
+document.write("<hr>");
+
+
+
+
+const Dolgozok = [{
+        nev: "Koaxk Ábel",
+        kor: 23,
+        fizetes: 400000,
+        beosztas: "Rendszergazda"
+    },
+    {
+        nev: "Zsíros B. Ödön",
+        kor: 45,
+        fizetes: 1200000,
+        beosztas: "Ügyvezető Igazgató"
+    },
+    {
+        nev: "Meg Győző",
+        kor: 32,
+        fizetes: 600000,
+        beosztas: "Marketing Manager"
+    },
+    {
+        nev: "Békés Csaba",
+        kor: 63,
+        fizetes: 180000,
+        beosztas: "Takarító"
+    },
+    {
+        nev: "Pofá Zoltán",
+        kor: 25,
+        fizetes: 300000,
+        beosztas: "Biztonsági Őr"
+    },
+    {
+        nev: "Fejet Lenke",
+        kor: 22,
+        fizetes: 220000,
+        beosztas: "Irodai Titkár"
+    },
+    {
+        nev: "Vak Cina",
+        kor: 30,
+        fizetes: 500000,
+        beosztas: "Üzem Orvos"
+    }
+];
+
+function legidosebbDolgozo(Dolgozok)
+{
+	let LegidosebbIndexe=0;
+    for(let i=0; i<Dolgozok.length; i++)
+    {
+    	if(Dolgozok[i].kor>Dolgozok[LegidosebbIndexe].kor)
+        {
+        	LegidosebbIndexe=i;
+        }
+    }
+	return LegidosebbIndexe;
+}
+
+document.write(legidosebbDolgozo(Dolgozok));
+document.write("<hr>");
+
+function fizetesEmeles(Dolgozok)
+{
+	let atlagFizetes=0;
+	for(let i=0; i<Dolgozok.length; i++)
+	{
+		atlagFizetes+=Dolgozok[i].fizetes;
+	}
+		return Math.round(atlagFizetes/Dolgozok.length);
+
+	for(let i=0; i<Dolgozok.length;i++)
+    {
+    	if(Dolgozok[i].fizetes<atlagFizetes/Dolgozok.length)
+        {
+        	let emelt=MAth.round(Dolgozok[i].fizetes*1,1);
+        }
+    }
+	return Dolgozok
+
+
+}
+
+document.write(fizetesEmeles(Dolgozok));
+
 
 </script>
