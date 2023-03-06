@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="hu">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fifa</title>
+</head>
+
+<body>
+    <script>
+        //1. érték: Csapat neve (nev)
+        //2. érték: Csapat helyezése (helyezes)
+        //3. érték: Csapat helyének változása (valtozas)
+        //4. érték: Csapat Pontszama (pont)
+
+        const csapatAdat = [
+            "Anglia;4;0;1662",
+            "Argentína;10;0;1614",
+            "Belgium;1;0;1752",
+            "Brazília;3;-1;1719",
+            "Chile;17;-3;1576",
+            "Dánia;14;-1;1584",
+            "Franciaország;2;1;1725",
+            "Hollandia;13;3;1586",
+            "Horvátország;8;-1;1625",
+            "Kolumbia;9;-1;1622",
+            "Mexikó;12;0;1603",
+            "Németország;16;-1;1580",
+            "Olaszország;15;1;1583",
+            "Peru;19;0;1551",
+            "Portugália;5;1;1643",
+            "Spanyolország;7;2;1631",
+            "Svájc;11;0;1604",
+            "Svédország;18;0;1560",
+            "Szenegál;20;0;1546",
+            "Uruguay;6;-1;1639"
+        ];
+
+
+        function ObjFeltolto(OmlesztettAdat) {
+            let tombom = [];
+            for (let i = 0; i < OmlesztettAdat.length; i++) {
+                let objektumom = {};
+                let objektumomSora = OmlesztettAdat[i].split(';');
+                objektumom.nev = objektumomSora[0];
+                objektumom.helyezes = objektumomSora[1];
+                objektumom.valtozas = objektumomSora[2];
+                objektumom.pontszam = objektumomSora[3];
+                tombom.push(objektumom);
+            }
+            return tombom;
+        }
+
+
+        let fifaAdataim = ObjFeltolto(csapatAdat);
+        document.write("<table border=\"1\">");
+        document.write("<tr><th>Név</th><th>Helyezés</th><th>Változás</th><th>Pontszám</th></tr>");
+        for (let i = 0; i < fifaAdataim.length; i++) {
+            document.write(`<tr><td>${fifaAdataim[i].nev}</td><td>${fifaAdataim[i].helyezes}</td><td>${fifaAdataim[i].valtozas}</td><td>${fifaAdataim[i].pontszam}</td></tr>`);
+        }
+        document.write("</table>");
+
+        // 1-es feladat:  Irja ki hány csapat szerepel a listán:
+
+        document.write("<br> A csapatok száma: " + fifaAdataim.length);
+
+        document.write("<hr>");
+
+        //2-es feladat: Írja ki mennyi a résztvevő csapatok átlagpontszáma
+
+        function atlagpont() {
+            let osszpontszamom = 0;
+            for (let i = 0; i < fifaAdataim.length; i++) {
+                osszpontszamom += Number(fifaAdataim[i].pontszam);
+            }
+            return osszpontszamom / fifaAdataim.length;
+
+        }
+        let atlagpontszam = atlagpont();
+        document.write(atlagpontszam);
+
+        document.write("<hr>");
+
+        //3-as feladat: Írja ki az átlag feletti csapatokat
+
+        function atlagFelettiek() {
+            let eredmenyTomb = [];
+            for (let i = 0; i < fifaAdataim.length; i++) {
+                if (fifaAdataim[i].pontszam > atlagpontszam) {
+                    eredmenyTomb.push(fifaAdataim[i].nev);
+                }
+            }
+            return eredmenyTomb;
+        }
+
+        document.write(atlagFelettiek());
+        document.write("<hr>");
+
+        //4-es feladat: Írja ki a legtöbbet javító csapatot
+
+        function legTobbetJavito(tomb) {
+            let maxIndex = 0;
+            for (let i = 0; i < tomb.length; i++) {
+                if (tomb[i].valtozas > tomb[maxIndex].valtozas) {
+                    maxIndex = i;
+                }
+            }
+            return tomb[maxIndex].nev;
+        }
+
+
+        document.write(legTobbetJavito(fifaAdataim));
+        document.write("<hr>");
+
+        //5. feladat - Mondja meg, hogy magyaroszág szerepelt-e ezen a ranglistán
+        //Próbálj UNIVERZÁLIS függvény is készíteni, legalább 1 bemeneti paraméterrel
+
+        function benneVanE(tomb, keresettOrszag) {
+            let szerepelE = false;
+            for (let i = 0; i < tomb.length; i++) {
+                if (keresettOrszag == tomb[i].nev) {
+                    szerepelE = true;
+                }
+            }
+            if (szerepelE == false) // helyett lehet írni if(!szerepelE)
+            {
+                document.write("<br>" + keresettOrszag + " NEM szerepelt");
+            }
+            else {
+                document.write("<br>" + keresettOrszag + " szerepelt");
+            }
+        }
+
+        benneVanE(fifaAdataim, "Magyarország");
+        document.write("<hr>");
+
+
+        //6. feladat - Készíts statisztikát a változásokról, melyben leírod, melyik változás hányszor szerepel a táblázatban,
+        //De csak azokat jelenítsd meg ahol a változások mennyisége(előfordulása) legalább 2
+
+        function statisztikaValtozasok() {
+            let rontasJavitas = [];
+            for (let i = 0; i < fifaAdataim.length; i++) {
+                let szerepelE = false;
+                for (let j = 0; j < rontasJavitas.length; j++) {
+                    if (fifaAdataim[i].valtozas == rontasJavitas[j]) {
+                        szerepelE = true;
+                    }
+                }
+                if (szerepelE == false) {
+                    rontasJavitas.push(fifaAdataim[i].valtozas);
+                }
+            }
+            return rontasJavitas;
+
+        }
+
+        statisztikaValtozasok(fifaAdataim);
+
+
+
+
+        function statisztikaValtozasokElofordulasa() {
+            let rontasJavitas = statisztikaValtozasok(fifaAdataim);
+            let elofordulas = [];
+            for (let i = 0; i < rontasJavitas.length; i++) {
+                elofordulas.push(0);
+            }
+            for (let i = 0; i < fifaAdataim.length; i++) {
+                for (let j = 0; j < rontasJavitas.length; j++) {
+                    if (fifaAdataim[i].valtozas == rontasJavitas[j]) {
+                        elofordulas[j]++;
+                    }
+                }
+            }
+
+
+            for (let i = 0; i < elofordulas.length; i++) {
+                if (elofordulas[i] > 1) {
+                    document.write("<br>" + rontasJavitas[i] + ":" + elofordulas[i]);
+                }
+            }
+        }
+
+        statisztikaValtozasokElofordulasa();
+
+
+
+
+
+    </script>
+
+</body>
+
+</html>
