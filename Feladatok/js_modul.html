@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+
+        //1. feladat
+
+        function KockaFelszin(oldalMeret) {
+            let felszin = Number(oldalMeret * oldalMeret * 6);
+            return felszin;
+        }
+
+        document.write(KockaFelszin(2) + "<br>");
+        document.write(KockaFelszin(3) + "<br>");
+        document.write(KockaFelszin(5) + "<br>");
+        document.write("<hr>")
+
+        //2. feladat
+        function KockaTerfogat(oldalMeret) {
+            let terfogat = Number(oldalMeret * oldalMeret * oldalMeret);
+            return terfogat;
+        }
+
+        document.write(KockaTerfogat(2) + "<br>");
+        document.write(KockaTerfogat(3) + "<br>");
+        document.write(KockaTerfogat(5) + "<br>");
+        document.write("<hr>")
+
+        //3. feladat
+        function PhErtek(vizsgaltErtek) {
+            if (vizsgaltErtek == 7) {
+                return "semleges";
+            }
+            else if (vizsgaltErtek < 7) {
+                return "savas";
+            }
+            else {
+                return "lúgos"
+            }
+        }
+        document.write(PhErtek(9) + "<br>");
+        document.write(PhErtek(5.5) + "<br>");
+        document.write(PhErtek(7) + "<br>");
+        document.write("<hr>")
+
+        //4. feladat
+        function ElsoNSzamOsszege(szamokMennyisege) {
+            let osszeg = 0;
+            for (let i = 1; i <= szamokMennyisege; i++) {
+                osszeg += i;
+            }
+            return osszeg;
+        }
+        document.write(ElsoNSzamOsszege(3) + "<br>");
+        document.write(ElsoNSzamOsszege(10) + "<br>");
+        document.write(ElsoNSzamOsszege(21) + "<br>");
+        document.write("<hr>")
+
+        //5. feladat
+        function MaxParos(vizsgaltTomb) {
+            let legnagyobbSzam = vizsgaltTomb[0];
+            for (let i = 1; i < vizsgaltTomb.length; i++) {
+                if (vizsgaltTomb[i] % 2 == 0 && vizsgaltTomb[i] > legnagyobbSzam) {
+                    legnagyobbSzam = vizsgaltTomb[i]
+                }
+            }
+            return legnagyobbSzam;
+
+        }
+        document.write(MaxParos([12, 3, 7, 19, 21]) + "<br>");
+        document.write(MaxParos([28, 14, 2, 42, 69]) + "<br>");
+        document.write(MaxParos([32, 21, 54, 33, 21]) + "<br>");
+
+        document.write("<hr>")
+
+
+        //6. feladat
+
+        function MaganHangzokSzama(vizsgaltSzoveg) {
+            let maganHangzok = ["A", "Á", "E", "É", "I", "Í", "O", "Ó", "Ö", "Ő", "U", "Ú", "Ü", "Ű", "a", "á", "e", "é", "i", "í", "o", "ó", "ö", "ő", "u", "ú", "ü", "ű"];
+            let darab = 0;
+            for (let i = 0; i < maganHangzok.length; i++) {
+                for (let j = 0; j < vizsgaltSzoveg.length; j++) {
+                    if (vizsgaltSzoveg[j] == maganHangzok[i]) {
+                        darab++
+                    }
+                }
+            }
+            return darab;
+
+        }
+        document.write(MaganHangzokSzama("Szeretem a programozás") + "<br>");
+        document.write(MaganHangzokSzama("Géza kék az ég") + "<br>");
+        document.write(MaganHangzokSzama("Répa, retek, mogyoró") + "<br>");
+        document.write("<hr>")
+
+        //7.feladat
+        function SzovegVisszafele(szoveg) {
+            let ujSzoveg = "";
+            for (let i = szoveg.length - 1; i >= 0; i--) {
+                ujSzoveg += szoveg.charAt(i);
+            }
+            return ujSzoveg;
+        }
+        document.write(SzovegVisszafele("Szeretem a programozás") + "<br>");
+        document.write(SzovegVisszafele("Géza kék az ég") + "<br>");
+        document.write(SzovegVisszafele("Répa, retek, mogyoró") + "<br>");
+        document.write("<hr>");
+
+        //8. feladat
+
+        const Dolgozok = [{
+            nev: "Koaxk Ábel",
+            kor: 23,
+            fizetes: 400000,
+            beosztas: "Rendszergazda"
+        },
+        {
+            nev: "Zsíros B. Ödön",
+            kor: 45,
+            fizetes: 1200000,
+            beosztas: "Ügyvezető Igazgató"
+        },
+        {
+            nev: "Meg Győző",
+            kor: 32,
+            fizetes: 600000,
+            beosztas: "Marketing Manager"
+        },
+        {
+            nev: "Békés Csaba",
+            kor: 63,
+            fizetes: 180000,
+            beosztas: "Takarító"
+        },
+        {
+            nev: "Pofá Zoltán",
+            kor: 25,
+            fizetes: 300000,
+            beosztas: "Biztonsági Őr"
+        },
+        {
+            nev: "Fejet Lenke",
+            kor: 22,
+            fizetes: 220000,
+            beosztas: "Irodai Titkár"
+        },
+        {
+            nev: "Vak Cina",
+            kor: 30,
+            fizetes: 500000,
+            beosztas: "Üzem Orvos"
+        }
+        ];
+
+        function CegAtlagEletkor(vizsgaltObjektumTomb) {
+            let osszeg = 0;
+            for (let i = 0; i < vizsgaltObjektumTomb.length; i++) {
+                osszeg += vizsgaltObjektumTomb[i].kor;
+            }
+            return Math.round(osszeg / vizsgaltObjektumTomb.length);
+        }
+        document.write(CegAtlagEletkor(Dolgozok) + "<br>");
+
+
+    </script>
+
+</body>
+
+</html>
