@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DOM felmeres</title>
+    <style>
+      #kirajzolandoElem{
+          height: 100px;
+          width: 100px;
+          background-color: aquamarine;
+          border: 2px solid black;
+
+      }
+
+      #animalandoElem{
+          height: 100px;
+          width: 100px;
+          animation-name:animacioIndulas;
+          animation-duration: 5s;
+          animation-fill-mode: both;
+      }
+
+    @keyframes animacioIndulas {
+        from {opacity: 0;}
+        to {opacity: 1;}
+    }
+
+    @keyframes animacioVissza {
+        from {opacity: 1;}
+        to {opacity: 0;}
+    }
+
+    #hibaUzi{
+        display: none;
+        background-color: none;
+    }
+    
+    </style>
+  </head>
+  <body>
+    <input type="text" id="szoveg" placeholder="Ide írd a szöveget" />
+    <p id="karakterszam">(0 karakter)</p>
+
+    <hr>
+    <label for="xKoordinata">A oldal hossza</label>
+    <input type="number" id="xKoordinata" value="100" />
+    <br>
+    <label for="yKoordinata">B oldal hossza</label>
+    <input type="number" id="yKoordinata" value="100" />
+    <br>
+    <br>
+    <button id="kirajzoloGomb">kirajzol</button>
+    <br>
+    <br>
+    <div id="kirajzolandoElem"></div>
+
+    <hr>
+    <button id="animaloGomb">Animáció indítása</button>
+    <br>
+    <br>
+    <img src="hidingCat.jpg" id="animalandoElem" />
+
+    <hr/>
+    <div id="hibaUzi"></div>
+    <br>
+    <label for="email">e-mail cím</label>
+    <input type="email" id="eMailCim" value="" required pattern="/^[0-9a-z\.-]+@([0-9a-z-]+\.)+[a-z]{2,4}$/i"/>
+    <br>
+    <label for="megerosit">e-mail megerősítése</label>
+    <input type="email" id="Megerosites" value="" required pattern="/^[0-9a-z\.-]+@([0-9a-z-]+\.)+[a-z]{2,4}$/i"/>
+    <br>
+    <button id="ellenorzoGomb">Ellenőrzés</button>
+
+    <script>
+      //1) feladat – Aktuális szöveghossz
+      //Készítsen egy beviteli mezőt, mellette egy egyszerű bekezdéssel, amihez rendelje a „karakterszam”
+      //azonosítót, oldja meg, hogy a beviteli mezőben bevitt karakterek mennyiségét, interaktívan, azonnal
+      //jelenítse meg a beviteli mező mellett, függvény segítségével.
+
+      document.querySelector("#szoveg").addEventListener("input", szamolas);
+
+      function szamolas() {
+        let szovegunk = document.querySelector("#szoveg").value;
+        let szovegunkHossza = szovegunk.length;
+        document.querySelector("#karakterszam").innerHTML = szovegunkHossza;
+      }
+    </script>
+
+    <script>
+      //2) feladat - Kirajzoló
+      //Készítsen 2 beviteli mezőt x és y koordinátákkal, és egy kirajzol gombot. (A weboldal szélére)
+      //Oldja meg hogy a beviteli mezők alapján, ha az alatta lévő kirajzol gombra kattintunk a képernyő egy
+      //tetszőleges pontján rajzoljon ki, az input adatoknak megfelelő négyzetet.
+      //Alapértelmezett X és Y érték is alapértelmezetten 100-100 legyen!
+
+      document
+        .querySelector("#kirajzoloGomb")
+        .addEventListener("click", kirajzolasFuggveny);
+
+      function kirajzolasFuggveny() {
+        let aOldal = document.querySelector("#xKoordinata").value;
+        let bOldal = document.querySelector("#yKoordinata").value;
+        document.querySelector("#kirajzolandoElem").style.height =
+          aOldal + "px";
+        document.querySelector("#kirajzolandoElem").style.width = bOldal + "px";
+      }
+    </script>
+
+    <script>
+      //3) feladat – „Bújócska”
+      //Készíts egy gombot, illetve egy képet valahova a weboldaladra (használd a mellékelt: „hidingCat.jpg”
+      //képet), old meg, hogy a gombra való kattintáskor, a képed elhalványodjon (5mp  alatt,  egyszerű
+      //animációval), ha ismételten rákattintunk a gombra akkor pedig fordítva történjen ez és a kép
+      //fokozatosan jelenjen meg...
+
+      document.querySelector("#animaloGomb").addEventListener("click",AnimacioCsere);
+
+      function AnimacioCsere(){
+        let allapot=document.querySelector("#animalandoElem").style.animationName;
+        if(allapot=="animacioIndulas"){
+            document.querySelector("#animalandoElem").style.animationName="animacioVissza";
+         
+        }
+        else{
+            document.querySelector("#animalandoElem").style.animationName="animacioIndulas";
+        }   
+      }
+    </script>
+
+
+    <script>
+        //4)feladat-HibaüzenetekKészíts két beviteli mezőt, e-mail cím és e-mail megerősítése címkével, illetve egy ellenőrzés gombot.
+        //Valamint egy dobozt az oldal tetején,ami alapnak nem látszódik, ide fogunk hibaüzeneteket írni.Ha az ellenőrzés gombra kattintunk 
+        //az alábbi esetekre figyelmeztessen azoldal tetején levő üzenő rész (a mező háttérszíne, az üzenetnek megfelelő színű legyen).
+        //•Nincs kitöltve egyik mező sem!
+        //•Nincs kitöltve az e-mail mező!
+        //•Nincs kitöltve az e-mail megerősítése mező!
+        //•Nem megfelelő az e-mail cím formátuma! (validációs regexa következő:/^[0-9a-z\.-]+@([0-9a-z-]+\.)+[a-z]{2,4}$/i)
+        //•Akét mező tartalma nem egyezik!
+        //•Adatok rögzítése sikeres!
+
+        document.querySelector("#ellenorzoGomb").addEventListener("click",hibaUzenetek);
+
+        function hibaUzenetek(){
+            let elsoMezo=document.querySelector("#eMailCim").value;
+            let masodikMezo=document.querySelector("#Megerosites").value;
+
+            if(elsoMezo=="" && masodikMezo=="" ){
+                document.querySelector("#hibaUzi").innerHTML="Nincs kitöltve egyik mező sem!";
+                document.querySelector("#hibaUzi").style.display="block";
+                document.querySelector("#hibaUzi").style.backgroundColor="red";
+            }            
+
+            else if(elsoMezo==""){
+                document.querySelector("#hibaUzi").innerHTML="Nincs kitöltve az e-mail mező!";
+                document.querySelector("#hibaUzi").style.display="block";
+                document.querySelector("#hibaUzi").style.backgroundColor="red";
+            }
+            else if(masodikMezo==""){
+                document.querySelector("#hibaUzi").innerHTML="Nincs kitöltve az e-mail megerősítése mező!";
+                document.querySelector("#hibaUzi").style.display="block";
+                document.querySelector("#hibaUzi").style.backgroundColor="red";
+            }
+            
+            else if(elsoMezo!=masodikMezo){
+                document.querySelector("#hibaUzi").innerHTML="A két mező tartalma nem egyezik!";
+                document.querySelector("#hibaUzi").style.display="block";
+                document.querySelector("#hibaUzi").style.backgroundColor="red";
+            }
+
+            else{
+                document.querySelector("#hibaUzi").innerHTML="Adatok rögzítése sikeres!";
+                document.querySelector("#hibaUzi").style.display="block";
+                document.querySelector("#hibaUzi").style.backgroundColor="green";
+            }
+        }
+       
+
+
+    </script>
+  </body>
+</html>
